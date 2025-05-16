@@ -1,0 +1,14 @@
+<h1>Todo Details</h1>
+
+<h1><%= @todo.title %></h1>
+
+<p><strong>Description:</strong></p>
+<p><%= @todo.description.present? ? @todo.description : "No description" %></p>
+
+<p><strong>Status:</strong> <%= @todo.completed ? "Completed ✓" : "Incomplete ✗" %></p>
+
+<p><strong>Due Date:</strong> <%= @todo.due_date ? @todo.due_date.strftime("%B %d, %Y") : "No due date set" %></p>
+
+<%= link_to "Edit", edit_todo_path(@todo) %> |
+<%= link_to "Back", todos_path %>
+

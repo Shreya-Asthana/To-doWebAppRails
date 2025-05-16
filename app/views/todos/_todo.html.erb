@@ -1,0 +1,22 @@
+<h1>My Todo List</h1>
+
+<div id="todos">
+  <% @todos.each do |todo| %>
+    <div class="todo-card">
+      <div>
+        <div class="todo-title"><%= todo.title %></div>
+        <div class="todo-status">
+          Status: <%= todo.completed ? "Completed ✓" : "Incomplete ✗" %>
+        </div>
+      </div>
+
+      <div class="todo-actions">
+        <%= link_to "Show", todo %>
+        <%= link_to "Edit", edit_todo_path(todo) %>
+        <%= link_to "Delete", todo, method: :delete, data: { confirm: "Are you sure?" } %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%= link_to "➕ Add New Todo", new_todo_path, class: "add-todo-button" %>

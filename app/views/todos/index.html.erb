@@ -1,0 +1,33 @@
+<h1>My Todo List</h1>
+<div class="task-summary">
+  <p>Completed Tasks: <strong><%= @completed_count %></strong></p>
+  <p>Remaining Tasks: <strong><%= @remaining_count %></strong></p>
+</div>
+<%= form_with url: todos_path, method: :get, local: true do |form| %>
+  <div class="form-group">
+    <%= form.label :category_id, "Filter by Category" %>
+    <%= form.select :category_id, options_for_select([["All", ""]] + @categories.map { |c| [c.name, c.id] }, params[:category_id]), {}, { onchange: 'this.form.submit();' } %>
+  </div>
+<% end %>
+
+
+<div id="todos">
+  <% @todos.each do |todo| %>
+    <div class="todo-card">
+      <div>
+        <div class="todo-title"><%= todo.title %></div>
+        <div class="todo-status">
+          Status: <%= todo.completed ? "Completed ✓" : "Incomplete ✗" %>
+        </div>
+      </div>
+
+      <div class="todo-actions">
+        <%= link_to "Show", todo %>
+        <%= link_to "Edit", edit_todo_path(todo) %>
+        <%= button_to "Delete", todo, method: :delete, data: { confirm: "Are you sure?" }, form_class: "inline-delete" %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%= link_to "➕ Add New Todo", new_todo_path, class: "add-todo-button" %>
